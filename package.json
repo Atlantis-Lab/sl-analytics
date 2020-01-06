@@ -1,0 +1,40 @@
+{
+  "name": "microfleet",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "git@tagit:AtlantisUnited/microfleet.git",
+  "author": "Andrew Ghostuhin <me@torinasakura.name>",
+  "scripts": {
+    "commit": "git-cz",
+    "lint": "eslint ./src",
+    "format": "prettier --write '*.{yml,yaml,json}' '{src,schemas}/**/*.{js,yml,yaml,json}'"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "8.3.4",
+    "@commitlint/config-lerna-scopes": "8.3.4",
+    "commitizen": "4.0.3",
+    "cz-conventional-changelog": "3.0.2",
+    "cz-lerna-changelog": "2.0.2",
+    "lerna": "3.20.2",
+    "lint-staged": "9.5.0",
+    "prettier": "1.19.1",
+    "husky": "3.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn lint"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "yarn format",
+      "git add"
+    ]
+  }
+}
