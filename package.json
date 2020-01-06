@@ -1,16 +1,15 @@
 {
-  "name": "microfleet",
-  "version": "0.0.0",
-  "main": "src/index.js",
-  "repository": "git@tagit:AtlantisUnited/microfleet.git",
-  "author": "Andrew Ghostuhin <me@torinasakura.name>",
+  "private": true,
   "scripts": {
     "commit": "git-cz",
-    "lint": "eslint ./src",
-    "format": "prettier --write '*.{yml,yaml,json}' '{src,schemas}/**/*.{js,yml,yaml,json}'",
-    "start": "mfleet",
-    "test": "mocha"
+    "lint": "eslint ./packages/**/src/",
+    "format": "prettier --write '*.{yml,yaml,json}' 'packages/**/{src,schemas}/**/*.{js,yml,yaml,json}'",
+    "start": "yarn workspace @microfleet/app start",
+    "test": "lerna run test --stream"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@commitlint/config-conventional": "8.3.4",
     "@commitlint/config-lerna-scopes": "8.3.4",

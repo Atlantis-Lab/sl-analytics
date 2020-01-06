@@ -1,0 +1,10 @@
+{
+  "name": "@microfleet/app",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "start": "mfleet",
+    "test": "mocha"
+  }
+}
