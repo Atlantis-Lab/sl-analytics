@@ -8,14 +8,14 @@ services:
       - ./:/workspace
     entrypoint: yarn
 
-  app:
+  gateway:
     image: node
     working_dir: /workspace
     volumes:
       - ./:/workspace
     ports:
       - 3000:3000
-    entrypoint: yarn app:start
+    entrypoint: yarn gateway:start
     depends_on:
       - rabbitmq
 
