@@ -1,0 +1,12 @@
+{
+  "name": "@microfleet/auth",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "start": "mfleet"
+  },
+  "dependencies": {
+    "common-errors": "^1.0.5"
+  }
+}
