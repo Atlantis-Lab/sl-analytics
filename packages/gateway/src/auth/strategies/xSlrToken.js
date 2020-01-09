@@ -1,6 +1,6 @@
 const { HttpStatusError } = require('common-errors')
 const Promise = require('bluebird')
-const AMQPTransport = require('@microfleet/transport-amqp')
+const { amqp } = require('@microfleet/common')
 const omit = require('lodash/omit')
 
 const config = require('../../config').get('/', {
@@ -13,10 +13,6 @@ const amqpConfig = omit(config.amqp.transport, [
   'listen',
   'onComplete',
 ])
-
-const getTransport = () => {
-  return AMQPTransport.connect(amqpConfig).disposer(amqp => amqp.close())
-}
 
 async function xSlrToken(request) {
   const { prefix } = config.router.routes
@@ -34,7 +30,7 @@ async function xSlrToken(request) {
     token: xSlrToken,
   }
 
-  return Promise.using(getTransport(), amqp => {
+  return Promise.using(amqp.getTransport(amqpConfig), amqp => {
     return amqp.publishAndWait(route, payload)
   })
 }
