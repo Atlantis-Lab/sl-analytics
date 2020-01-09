@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@apla/clickhouse@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@apla/clickhouse/-/clickhouse-1.6.1.tgz#27608fb1ec43c9df5f1d9cbf6222e33a87cba7ee"
+  integrity sha512-NMLyxv6vVFhQ7nW5soUVb1PUaQ0MtKMsDwuQN9RTJwEPZ6p/tOW+tG8Sr1axKQl1VJBuhHAKHxQrow/fFdlj/A==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.5.5.tgz#bc0782f6d69f7b7d49531219699b988f669a8f9d"

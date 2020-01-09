@@ -1,0 +1,13 @@
+{
+  "name": "@microfleet/collector",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "start": "mfleet"
+  },
+  "dependencies": {
+    "@apla/clickhouse": "^1.6.1",
+    "common-errors": "^1.0.5"
+  }
+}

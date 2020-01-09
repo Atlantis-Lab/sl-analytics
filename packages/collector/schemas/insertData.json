@@ -1,0 +1,22 @@
+{
+  "$id": "insertData",
+  "type": "object",
+  "required": ["client_id", "overlay_open", "overlay_type", "device"],
+  "properties": {
+    "client_id": {
+      "type": "number"
+    },
+    "overlay_open": {
+      "type": "string",
+      "minLength": 1
+    },
+    "overlay_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "device": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

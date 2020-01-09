@@ -30,8 +30,31 @@ services:
     depends_on:
       - rabbitmq
 
+  collector:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - 3002:3002
+    entrypoint: yarn collector:start
+    environment:
+      - CH_HOST=clickhouse
+      - CH_PORT=8123
+      - CH_USER=default
+    depends_on:
+      - rabbitmq
+
   rabbitmq:
     image: rabbitmq:management-alpine
     ports:
       - '15672:15672'
       - '5672:5672'
+
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+    volumes:
+      - ./data/clickhouse/data:/var/lib/clickhouse
