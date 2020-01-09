@@ -7,7 +7,7 @@ services:
     volumes:
       - ./:/workspace
     entrypoint: yarn
-  
+
   app:
     image: node
     working_dir: /workspace
@@ -22,5 +22,5 @@ services:
   rabbitmq:
     image: rabbitmq:management-alpine
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - '15672:15672'
+      - '5672:5672'
