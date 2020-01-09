@@ -1,7 +1,7 @@
 const { ActionTransport, routerExtension } = require('@microfleet/core')
 const path = require('path')
 
-const { xSlrToken } = require('../auth')
+const { xSlrToken, jwtToken } = require('../auth')
 
 exports.router = {
   routes: {
@@ -16,6 +16,6 @@ exports.router = {
     register: [routerExtension('validate/schemaLessAction')],
   },
   auth: {
-    strategies: { xSlrToken },
+    strategies: { xSlrToken, jwtToken },
   },
 }

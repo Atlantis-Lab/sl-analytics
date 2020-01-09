@@ -1,4 +1,7 @@
-const { HttpStatusError } = require('common-errors')
+const {
+  HttpStatusError,
+  AuthenticationRequiredError,
+} = require('common-errors')
 const Promise = require('bluebird')
 const { amqp } = require('@microfleet/common')
 const omit = require('lodash/omit')
@@ -14,20 +17,34 @@ const amqpConfig = omit(config.amqp.transport, [
   'onComplete',
 ])
 
-async function xSlrToken(request) {
+function getAuthToken(authHeader) {
+  const [auth, token] = authHeader
+    .trim()
+    .split(/\s+/, 2)
+    .map(str => str.trim())
+
+  if (!auth || !token) {
+    throw new AuthenticationRequiredError('Invalid token')
+  }
+
+  return token
+}
+
+async function jwtToken(request) {
   const { prefix } = config.router.routes
   const { action } = request
   const { auth } = action
   const { strategy = 'required' } = auth
-  const route = `${prefix}.verifySlrToken`
-  const xSlrToken = request.headers['x-slr-token']
+  const route = `${prefix}.verifyJwtToken`
+  const authorization = request.headers.authorization
+  const token = getAuthToken(authorization)
 
-  if (strategy === 'required' && !xSlrToken) {
+  if (strategy === 'required' && !authorization) {
     throw new HttpStatusError(401, 'Credentials Required')
   }
 
   const payload = {
-    token: xSlrToken,
+    token,
   }
 
   return Promise.using(amqp.getTransport(amqpConfig), amqp => {
@@ -35,4 +52,4 @@ async function xSlrToken(request) {
   })
 }
 
-module.exports = xSlrToken
+module.exports = jwtToken

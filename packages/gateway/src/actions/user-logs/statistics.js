@@ -1,7 +1,9 @@
+const { NotPermittedError } = require('common-errors')
 const { ActionTransport } = require('@microfleet/core')
 const Promise = require('bluebird')
 const { amqp } = require('@microfleet/common')
 const omit = require('lodash/omit')
+const { checkAdmin } = require('../../utils/checkRole')
 
 const config = require('../../config').get('/', {
   env: process.env.NODE_ENV,
@@ -15,7 +17,6 @@ const amqpConfig = omit(config.amqp.transport, [
 ])
 
 async function statistics({ params }) {
-  console.log(params)
   const { type, options } = params
 
   const { prefix } = config.router.routes
@@ -30,9 +31,10 @@ async function statistics({ params }) {
   return { result: data }
 }
 
+statistics.allowed = checkAdmin
 statistics.transports = [ActionTransport.http]
 statistics.auth = {
-  name: 'xSlrToken',
+  name: 'jwtToken',
 }
 
 module.exports = statistics

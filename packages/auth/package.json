@@ -7,6 +7,7 @@
     "start": "mfleet"
   },
   "dependencies": {
-    "common-errors": "^1.0.5"
+    "common-errors": "^1.0.5",
+    "jsonwebtoken": "8.5.1"
   }
 }
