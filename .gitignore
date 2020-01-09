@@ -109,3 +109,10 @@ tmp/
 temp/
 
 # End of https://www.gitignore.io/api/node
+
+
+# Clickhouse
+data
+
+# Mac OS
+.DB_STORE
