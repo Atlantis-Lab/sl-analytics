@@ -15,7 +15,18 @@ services:
       - ./:/workspace
     ports:
       - 3000:3000
-    entrypoint: yarn start
+    entrypoint: yarn app:start
+    depends_on:
+      - rabbitmq
+
+  auth:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - 3001:3001
+    entrypoint: yarn auth:start
     depends_on:
       - rabbitmq
 
