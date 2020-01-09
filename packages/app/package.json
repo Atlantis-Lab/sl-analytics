@@ -5,6 +5,11 @@
   "private": true,
   "scripts": {
     "start": "mfleet",
-    "test": "mocha"
+    "test": "mocha --timeout 10000"
+  },
+  "dependencies": {
+    "@microfleet/transport-amqp": "^15.1.4",
+    "common-errors": "^1.0.5",
+    "ms-conf": "^5.0.2"
   }
 }

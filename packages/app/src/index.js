@@ -1,13 +1,13 @@
 const { Microfleet } = require('@microfleet/core')
+const merge = require('lodash/merge')
 
 class MicrofleetApp extends Microfleet {
-  constructor() {
-    super({
-      name: 'microfleet-app',
-      router: {
-        extensions: { register: [] },
-      },
-    })
+  static defaultOpts = require('./config').get('/', {
+    env: process.env.NODE_ENV,
+  })
+
+  constructor(opts = {}) {
+    super(merge({}, MicrofleetApp.defaultOpts, opts))
   }
 }
 
