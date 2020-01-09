@@ -1,5 +1,5 @@
 {
-  "$id": "verifyToken",
+  "$id": "verifySlrToken",
   "type": "object",
   "required": ["token"],
   "properties": {
