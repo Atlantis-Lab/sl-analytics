@@ -6,5 +6,8 @@ function dataCollectorAction({ params }) {
 }
 
 dataCollectorAction.transports = [ActionTransport.amqp, ActionTransport.http]
+dataCollectorAction.auth = {
+  name: 'xSlrToken',
+}
 
 module.exports = dataCollectorAction
