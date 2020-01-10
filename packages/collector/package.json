@@ -4,10 +4,11 @@
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "start": "mfleet"
+    "start": "mfleet",
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
-    "@apla/clickhouse": "^1.6.1",
-    "common-errors": "^1.0.5"
+    "common-errors": "^1.0.5",
+    "clickhouse": "1.2.21"
   }
 }

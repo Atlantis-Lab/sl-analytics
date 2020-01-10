@@ -1,16 +1,18 @@
 const { ActionTransport } = require('@microfleet/core')
 
+const dbName = process.env.CH_DB_NAME || 'au'
+
 const presets = {
   countOpenByPeriod: ({ periodType, overlayType, from, to, limit = 1000 }) => `
     SELECT
-      to${periodType}(toDateTime(event_time)) as ${periodType},
+      to${periodType}(toDateTime(event_time)) as ${periodType}Period,
       count( ) as count_open
     FROM
-    au.user_logs
+    ${dbName}.user_logs
     WHERE
       overlay_type='${overlayType}' AND event_time BETWEEN '${from}' AND '${to}'
     GROUP BY
-      ${periodType}
+      ${periodType}Period
     ORDER BY
       count_open DESC
     LIMIT ${limit}
@@ -20,7 +22,7 @@ const presets = {
       device,
       count( ) as count_device
     FROM
-      au.user_logs
+      ${dbName}.user_logs
     WHERE
       event_time BETWEEN '${from}' AND '${to}'
     GROUP BY
@@ -34,7 +36,7 @@ const presets = {
       overlay_type,
       count( ) as count_overlay
     FROM
-      au.user_logs
+      ${dbName}.user_logs
     WHERE
       device='${device}' AND event_time BETWEEN '${from}' AND '${to}'
     GROUP BY
@@ -50,9 +52,9 @@ async function getData({ params }) {
   const { type, options } = params
   const statement = presets[type](options)
 
-  const { data } = await ch.querying(statement, { dataObjects: true })
+  const rows = await ch.query(statement).toPromise()
 
-  return data
+  return rows
 }
 
 getData.transports = [ActionTransport.amqp]

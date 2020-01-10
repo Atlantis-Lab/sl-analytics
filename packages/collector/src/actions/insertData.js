@@ -1,22 +1,22 @@
 const { ActionTransport } = require('@microfleet/core')
 
-function insertData({ params }) {
+const dbName = process.env.CH_DB_NAME || 'au'
+
+async function insertData({ params }) {
   const ch = this.clickhouse
   const { client_id, overlay_open, overlay_type, device } = params
 
-  const stream = ch.query('INSERT INTO au.user_logs', {
-    format: 'JSONEachRow',
-  })
-
-  stream.write({
+  const ws = ch.insert(`INSERT INTO ${dbName}.user_logs`).stream()
+  await ws.writeRow([
     client_id,
     overlay_open,
     overlay_type,
     device,
-    event_date: new Date().toISOString().split('T')[0],
-    event_time: new Date(),
-  })
-  stream.end()
+    new Date().toISOString().split('T')[0],
+    new Date(),
+  ])
+
+  return ws.exec()
 }
 
 insertData.transports = [ActionTransport.amqp]

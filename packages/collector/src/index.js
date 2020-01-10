@@ -1,5 +1,5 @@
 const { Microfleet, ConnectorsTypes } = require('@microfleet/core')
-const ClickHouse = require('@apla/clickhouse')
+const { ClickHouse } = require('clickhouse')
 const merge = require('lodash/merge')
 
 class Collector extends Microfleet {
@@ -11,9 +11,12 @@ class Collector extends Microfleet {
     super(merge({}, Collector.defaultOpts, opts))
 
     this.clickhouse = new ClickHouse({
-      host: process.env.CH_HOST,
+      url: process.env.CH_HOST,
       port: process.env.CH_PORT,
-      user: process.env.CH_USER,
+      basicAuth: {
+        username: process.env.CH_USER,
+        password: process.env.CH_PASSWORD || '',
+      },
     })
 
     this.addConnector(ConnectorsTypes.application, () => this.initClickhouse())
