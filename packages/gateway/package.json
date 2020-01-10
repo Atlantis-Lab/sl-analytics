@@ -1,5 +1,5 @@
 {
-  "name": "@microfleet/gateway",
+  "name": "@au/gateway",
   "version": "0.0.0",
   "main": "src/index.js",
   "private": true,

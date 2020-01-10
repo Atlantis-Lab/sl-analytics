@@ -1,6 +1,6 @@
 const { ActionTransport } = require('@microfleet/core')
 const Promise = require('bluebird')
-const { amqp } = require('@microfleet/common')
+const { amqp } = require('@au/common')
 const omit = require('lodash/omit')
 
 const config = require('../../config').get('/', {

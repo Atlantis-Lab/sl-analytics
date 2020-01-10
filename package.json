@@ -4,9 +4,9 @@
     "commit": "git-cz",
     "lint": "eslint ./packages/**/src/",
     "format": "prettier --write '*.{yml,yaml,json}' 'packages/**/{src,schemas}/**/*.{js,yml,yaml,json}'",
-    "gateway:start": "yarn workspace @microfleet/gateway start",
-    "auth:start": "yarn workspace @microfleet/auth start",
-    "collector:start": "yarn workspace @microfleet/collector start",
+    "gateway:start": "yarn workspace @au/gateway start",
+    "auth:start": "yarn workspace @au/auth start",
+    "collector:start": "yarn workspace @au/collector start",
     "test": "lerna run test --stream"
   },
   "workspaces": [

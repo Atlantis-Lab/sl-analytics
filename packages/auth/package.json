@@ -1,5 +1,5 @@
 {
-  "name": "@microfleet/auth",
+  "name": "@au/auth",
   "version": "0.0.0",
   "main": "src/index.js",
   "private": true,
