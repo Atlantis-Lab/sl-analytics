@@ -5,19 +5,17 @@ const chaiHttp = require('chai-http')
 const chaiSubset = require('chai-subset')
 const chai = require('chai')
 chai.use(chaiHttp).use(chaiSubset)
-const { clickhouse } = require('../../../test/helpers/clickhouse')
+const omit = require('lodash/omit')
 
 const { jwtSign } = require('../../../test/helpers/jwt')
 const { jwt } = require('@au/auth/src/configs/jwt')
 
 const { assert, expect } = chai
 
-const amqpConfig = {
-  bindPersistantQueueToHeadersExchange: true,
-  connection: {
-    host: 'rabbitmq',
-  },
-}
+const amqpConfig = omit(
+  require('@au/gateway/src/configs/amqp').amqp.transport,
+  ['queue', 'neck', 'listen', 'onComplete'],
+)
 
 describe('gateway service', () => {
   it('should be able to start', async () => {
@@ -106,7 +104,5 @@ describe('gateway', async () => {
     }
 
     const response = await request(options)
-
-    console.log(response.body)
   })
 })
