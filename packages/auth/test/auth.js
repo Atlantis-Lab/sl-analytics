@@ -61,5 +61,7 @@ describe('auth', () => {
     }
   })
 
-  after('close auth', () => auth.close())
+  after('close auth', async () => {
+    await auth.close()
+  })
 })
