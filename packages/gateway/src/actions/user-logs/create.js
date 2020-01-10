@@ -16,7 +16,7 @@ const amqpConfig = omit(config.amqp.transport, [
 
 async function create({ params }) {
   const { client_id, overlay_open, overlay_type, device } = params
-  const { prefix } = config.router.routes
+  const { prefix } = this.config.router.routes
   const route = `${prefix}.insertData`
 
   const payload = {
