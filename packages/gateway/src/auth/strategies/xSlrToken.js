@@ -15,6 +15,12 @@ const amqpConfig = omit(config.amqp.transport, [
 ])
 
 async function xSlrToken(request) {
+  const { transport } = request
+
+  if (transport !== 'http') {
+    return
+  }
+
   const { prefix } = config.router.routes
   const { action } = request
   const { auth } = action
