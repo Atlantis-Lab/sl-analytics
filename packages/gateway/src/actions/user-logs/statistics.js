@@ -1,4 +1,3 @@
-const { NotPermittedError } = require('common-errors')
 const { ActionTransport } = require('@microfleet/core')
 const Promise = require('bluebird')
 const { amqp } = require('@au/common')
@@ -28,7 +27,7 @@ async function statistics({ params }) {
     return amqp.publishAndWait(route, payload)
   })
 
-  return { result: data }
+  return data
 }
 
 statistics.allowed = checkAdmin
