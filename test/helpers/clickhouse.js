@@ -43,7 +43,7 @@ exports.sampleUserLogsData = async (ch, dbName = 'au_test') => {
 }
 
 exports.cleanUserLogsTable = async (ch, dbName = 'au_test') => {
-  await ch.query('DROP TABLE au_test.user_logs').toPromise()
+  await ch.query(`DROP TABLE ${dbName}.user_logs`).toPromise()
   await ch
     .query(
       `CREATE TABLE IF NOT EXISTS ${dbName}.user_logs (client_id Int32, overlay_open String, overlay_type String, device String, event_date Date, event_time DateTime) ENGINE = MergeTree(event_date, (client_id, overlay_type), 8192)`,
@@ -52,7 +52,7 @@ exports.cleanUserLogsTable = async (ch, dbName = 'au_test') => {
 }
 
 exports.clickhouse = new ClickHouse({
-  database: 'au',
+  database: process.env.CH_DB_NAME || 'au_test',
   url: process.env.CH_HOST || 'clickhouse',
   port: process.env.CH_PORT || 8123,
   basicAuth: {

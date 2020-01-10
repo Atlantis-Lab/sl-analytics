@@ -29,8 +29,8 @@ describe('collector service', () => {
 describe('collector', () => {
   const collector = new Collector()
   before('init collector', async () => {
-    await collector.connect()
-    await sampleUserLogsData(collector.clickhouse)
+    await cleanUserLogsTable(clickhouse)
+    await sampleUserLogsData(clickhouse)
   })
 
   it('should be send user log', async () => {
@@ -133,10 +133,5 @@ describe('collector', () => {
       { overlay_type: 'ot_2', count_overlay: 3 },
       { overlay_type: 'ot_3', count_overlay: 3 },
     ])
-  })
-
-  after('stop collector', async () => {
-    await cleanUserLogsTable(clickhouse)
-    collector.close()
   })
 })
