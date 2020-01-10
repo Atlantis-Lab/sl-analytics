@@ -8,6 +8,21 @@ services:
       - ./:/workspace
     entrypoint: yarn
 
+  test:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn run test
+    environment:
+      - CH_HOST=clickhouse
+      - CH_PORT=8123
+      - CH_USER=default
+      - CH_DB_NAME=au_test
+    depends_on:
+      - rabbitmq
+      - clickhouse
+
   gateway:
     image: node
     working_dir: /workspace

@@ -4,7 +4,8 @@
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "start": "mfleet"
+    "start": "mfleet",
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
     "common-errors": "^1.0.5",
