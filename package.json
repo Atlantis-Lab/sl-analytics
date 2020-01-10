@@ -7,7 +7,7 @@
     "gateway:start": "yarn workspace @au/gateway start",
     "auth:start": "yarn workspace @au/auth start",
     "collector:start": "yarn workspace @au/collector start",
-    "test": "lerna run test --stream"
+    "test": "lerna run test --stream --concurrency 1"
   },
   "workspaces": [
     "packages/*"
@@ -17,6 +17,7 @@
     "@commitlint/config-lerna-scopes": "8.3.4",
     "babel-eslint": "^10.0.3",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "chai-subset": "^1.6.0",
     "commitizen": "4.0.3",
     "cz-conventional-changelog": "3.0.2",

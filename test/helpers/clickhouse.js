@@ -1,3 +1,5 @@
+const { ClickHouse } = require('clickhouse')
+
 // [client_id, overlay_open, overlay_type, device, event_date, event_time]
 const userLogs = [
   [1, 'oo_1', 'ot_1', 'd_1', '2019-01-01', '2019-01-01 00:00:00'],
@@ -31,11 +33,21 @@ const userLogs = [
   [3, 'oo_1', 'ot_1', 'd_1', '2019-10-01', '2019-10-01 00:00:03'],
 ]
 
-exports.sampleUserLogsData = async ch => {
-  const ws = ch.insert('INSERT INTO au_test.user_logs').stream()
+exports.sampleUserLogsData = async (ch, dbName = 'au_test') => {
+  const ws = ch.insert(`INSERT INTO ${dbName}.user_logs`).stream()
   for (let i = 0; i < userLogs.length; i++) {
     await ws.writeRow(userLogs[i])
   }
 
   return ws.exec()
 }
+
+exports.clickhouse = new ClickHouse({
+  database: 'au',
+  url: process.env.CH_HOST || 'clickhouse',
+  port: process.env.CH_PORT || 8123,
+  basicAuth: {
+    username: process.env.CH_USER || 'default',
+    password: process.env.CH_PASSWORD || '',
+  },
+})

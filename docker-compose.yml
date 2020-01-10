@@ -22,6 +22,9 @@ services:
     depends_on:
       - rabbitmq
       - clickhouse
+      - gateway
+      - collector
+      - auth
 
   gateway:
     image: node
