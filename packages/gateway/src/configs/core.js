@@ -1,4 +1,4 @@
-exports.name = 'au-microfleet'
+exports.name = 'au-gateway'
 
 exports.debug = process.env.NODE_ENV !== 'production'
 
