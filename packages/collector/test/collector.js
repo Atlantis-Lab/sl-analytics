@@ -7,18 +7,16 @@ const deepEqualInAnyOrder = require('deep-equal-in-any-order')
 const { expect } = require('chai')
   .use(chaiSubset)
   .use(deepEqualInAnyOrder)
-const { sampleUserLogsData } = require('../../../test/helpers/clickhouse')
+const {
+  sampleUserLogsData,
+  clickhouse,
+  cleanUserLogsTable,
+} = require('../../../test/helpers/clickhouse')
 
-const config = require('../src/config').get('/', {
-  env: process.env.NODE_ENV,
-})
-
-const amqpConfig = omit(config.amqp.transport, [
-  'queue',
-  'neck',
-  'listen',
-  'onComplete',
-])
+const amqpConfig = omit(
+  require('@au/collector/src/configs/amqp').amqp.transport,
+  ['queue', 'neck', 'listen', 'onComplete'],
+)
 
 describe('collector service', () => {
   it('should be able to start', async () => {
@@ -138,8 +136,7 @@ describe('collector', () => {
   })
 
   after('stop collector', async () => {
-    const ch = collector.clickhouse
-    await ch.query('DROP TABLE au_test.user_logs').toPromise()
+    await cleanUserLogsTable(clickhouse)
     collector.close()
   })
 })
