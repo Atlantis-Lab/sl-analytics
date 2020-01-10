@@ -52,9 +52,7 @@ async function getData({ params }) {
   const { type, options } = params
   const statement = presets[type](options)
 
-  const rows = await ch.query(statement).toPromise()
-
-  return rows
+  return await ch.query(statement).toPromise()
 }
 
 getData.transports = [ActionTransport.amqp]
