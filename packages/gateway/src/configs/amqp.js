@@ -1,6 +1,6 @@
 exports.amqp = {
   transport: {
-    queue: 'au-microfleet',
+    queue: 'au-gateway',
     neck: 5,
     bindPersistantQueueToHeadersExchange: true,
     connection: {
