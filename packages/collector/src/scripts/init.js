@@ -1,6 +1,6 @@
 async function init() {
   const ch = this.clickhouse
-  const dbName = process.env.CH_DB_NAME || 'au'
+  const dbName = process.env.CH_DB_NAME || 'au_test'
 
   await ch.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`).toPromise()
   await ch
