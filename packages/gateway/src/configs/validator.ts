@@ -1,5 +1,5 @@
-const path = require('path')
+import * as path from 'path'
 
-exports.validator = {
+export const validator = {
   schemas: [path.resolve(__dirname, '../../schemas')],
 }

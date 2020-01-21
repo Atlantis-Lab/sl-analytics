@@ -1,8 +1,6 @@
-exports.amqp = {
+export const amqp = {
   transport: {
     queue: 'au-gateway',
-    neck: 5,
-    bindPersistantQueueToHeadersExchange: true,
     connection: {
       host: 'rabbitmq',
     },

@@ -1,4 +1,4 @@
-exports.http = {
+export const http = {
   server: {
     handler: 'hapi',
     port: 3000,

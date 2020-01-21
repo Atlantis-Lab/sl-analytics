@@ -1,4 +1,6 @@
-exports.checkAdmin = request => {
+import { NotPermittedError } from 'common-errors'
+
+export const checkAdmin = request => {
   const { role } = request.auth.credentials
 
   if (role && role !== 'admin') {
