@@ -7,7 +7,7 @@
 
 ## Run test
 
-1. `docker-compose -f docker-compose.test.yml up --abort-on-container-exit test`
+1. `docker-compose -f docker-compose.test.yml run test`
 
 ## Description packages
 
