@@ -5,6 +5,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "lint": "tslint -c tslint.json 'packages/**/src/**/*.ts'",
     "commit": "git-cz",
     "auth:dev": "yarn workspace @au/auth dev",
     "collector:dev": "yarn workspace @au/collector dev",
@@ -31,6 +32,7 @@
     "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
     "tslint-config-blvd": "^1.2.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.7.5"
   },
   "husky": {
