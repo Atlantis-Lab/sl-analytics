@@ -1,5 +1,5 @@
 {
-  "$id": "insertData",
+  "$id": "user.log.add",
   "type": "object",
   "required": ["client_id", "overlay_open", "overlay_type", "device"],
   "properties": {
