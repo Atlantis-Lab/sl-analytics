@@ -1,5 +1,5 @@
 {
-  "$id": "verifyJwtToken",
+  "$id": "token.slr.verify",
   "type": "object",
   "required": ["token"],
   "properties": {
