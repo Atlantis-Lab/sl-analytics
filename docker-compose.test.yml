@@ -14,55 +14,10 @@ services:
     volumes:
       - ./:/workspace
     entrypoint: yarn run test
-    environment:
-      - CH_HOST=clickhouse
-      - CH_PORT=8123
-      - CH_USER=default
-      - CH_DB_NAME=au_test
     depends_on:
       - rabbitmq
       - clickhouse
-      - gateway
-      - collector
-      - auth
 
-  gateway:
-    image: node
-    working_dir: /workspace
-    volumes:
-      - ./:/workspace
-    ports:
-      - 3000:3000
-    entrypoint: yarn gateway:start
-    depends_on:
-      - rabbitmq
-
-  auth:
-    image: node
-    working_dir: /workspace
-    volumes:
-      - ./:/workspace
-    ports:
-      - 3001:3001
-    entrypoint: yarn auth:start
-    depends_on:
-      - rabbitmq
-
-  collector:
-    image: node
-    working_dir: /workspace
-    volumes:
-      - ./:/workspace
-    ports:
-      - 3002:3002
-    entrypoint: yarn collector:start
-    environment:
-      - CH_HOST=clickhouse
-      - CH_PORT=8123
-      - CH_USER=default
-      - CH_DB_NAME=au_test
-    depends_on:
-      - rabbitmq
 
   rabbitmq:
     image: rabbitmq:management-alpine
