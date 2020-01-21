@@ -15,7 +15,7 @@ services:
       - ./:/workspace
     ports:
       - 3000:3000
-    entrypoint: yarn gateway:start
+    entrypoint: yarn gateway:dev
     depends_on:
       - rabbitmq
 
@@ -26,7 +26,7 @@ services:
       - ./:/workspace
     ports:
       - 3001:3001
-    entrypoint: yarn auth:start
+    entrypoint: yarn auth:dev
     depends_on:
       - rabbitmq
 
@@ -37,13 +37,14 @@ services:
       - ./:/workspace
     ports:
       - 3002:3002
-    entrypoint: yarn collector:start
+    entrypoint: yarn collector:dev
     environment:
       - CH_HOST=clickhouse
       - CH_PORT=8123
       - CH_USER=default
     depends_on:
       - rabbitmq
+      - clickhouse
 
   rabbitmq:
     image: rabbitmq:management-alpine
