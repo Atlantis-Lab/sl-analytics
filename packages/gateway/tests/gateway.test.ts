@@ -1,25 +1,9 @@
-import { Promise } from 'bluebird'
-import * as request from 'request-promise'
 import { GatewayApp } from '@au/gateway/src/gateway'
 import { AuthApp } from '@au/auth/src/auth'
 import { CollectorApp } from '@au/collector/src/collector'
 import * as jwt from 'jsonwebtoken'
+import * as request from 'request-promise'
 import { reset } from '../../../tests/helpers/clickhouse'
-
-import { omit } from 'lodash'
-import * as AMQPTransport from '@microfleet/transport-amqp'
-import { config } from '@au/gateway/src/configs'
-
-const getTransport = amqpConfig => {
-  return AMQPTransport.connect(amqpConfig).disposer(amqp => amqp.close())
-}
-
-const amqpConfig = omit(config.amqp.transport, [
-  'queue',
-  'neck',
-  'listen',
-  'onComplete',
-])
 
 describe('gateway service', () => {
   test('should be able to start', async () => {
@@ -99,17 +83,13 @@ describe('gateway', () => {
   })
 
   test('should be send user log by amqp', async () => {
-    const result = await Promise.using(
-      getTransport(amqpConfig),
-      (amqp: any) => {
-        return amqp.publishAndWait('gateway.user.log.add', {
-          client_id: 123,
-          overlay_open: 'ovop_1',
-          overlay_type: 'ov_type_1',
-          device: 'device_1',
-        })
-      },
-    )
+    const amqp = gatewayApp.amqp
+    const result = await amqp.publishAndWait('gateway.user.log.add', {
+      client_id: 123,
+      overlay_open: 'ovop_1',
+      overlay_type: 'ov_type_1',
+      device: 'device_1',
+    })
 
     expect(result).toMatchObject({ result: 'ok' })
   })
