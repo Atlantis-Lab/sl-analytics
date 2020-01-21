@@ -1,36 +1,37 @@
 {
   "private": true,
-  "scripts": {
-    "commit": "git-cz",
-    "lint": "eslint ./packages/**/src/",
-    "format": "prettier --write '*.{yml,yaml,json}' 'packages/**/{src,schemas}/**/*.{js,yml,yaml,json}'",
-    "gateway:start": "yarn workspace @au/gateway start",
-    "auth:start": "yarn workspace @au/auth start",
-    "collector:start": "yarn workspace @au/collector start",
-    "test": "lerna run test --stream --concurrency 1"
-  },
   "workspaces": [
     "packages/*"
   ],
+  "license": "MIT",
+  "scripts": {
+    "commit": "git-cz",
+    "auth:dev": "yarn workspace @au/auth dev",
+    "collector:dev": "yarn workspace @au/collector dev",
+    "gateway:dev": "yarn workspace @au/gateway dev",
+    "test": "jest"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "8.3.4",
     "@commitlint/config-lerna-scopes": "8.3.4",
-    "babel-eslint": "^10.0.3",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "chai-subset": "^1.6.0",
+    "@types/jest": "^24.9.0",
+    "chalk": "^3.0.0",
     "commitizen": "4.0.3",
     "cz-conventional-changelog": "3.0.2",
     "cz-lerna-changelog": "2.0.2",
-    "deep-equal-in-any-order": "^1.0.21",
-    "eslint": "^6.8.0",
-    "husky": "3.1.0",
-    "lerna": "3.20.2",
-    "lint-staged": "9.5.0",
-    "mocha": "^7.0.0",
+    "husky": "^4.0.10",
+    "jest": "^24.9.0",
+    "lerna": "^3.19.0",
+    "lint-staged": "10.0.1",
+    "nodemon": "^2.0.2",
     "prettier": "1.19.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.6.2",
+    "tslint": "^5.20.1",
+    "tslint-config-blvd": "^1.2.1",
+    "typescript": "^3.7.5"
   },
   "husky": {
     "hooks": {
@@ -48,13 +49,5 @@
       "yarn format",
       "git add"
     ]
-  },
-  "dependencies": {
-    "@hapi/hapi": "^18.4.0",
-    "@microfleet/core": "^15.7.0",
-    "@microfleet/transport-amqp": "^15.1.4",
-    "@microfleet/validation": "^8.1.2",
-    "common-errors": "^1.0.5",
-    "uuid": "^3.3.3"
   }
 }
