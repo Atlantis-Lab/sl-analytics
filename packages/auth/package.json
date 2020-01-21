@@ -1,14 +1,35 @@
 {
   "name": "@au/auth",
+  "description": "Auth",
+  "main": "./src/index.ts",
   "version": "0.0.0",
-  "main": "src/index.js",
-  "private": true,
   "scripts": {
-    "start": "mfleet",
-    "test": "mocha --timeout 10000"
+    "dev": "nodemon --exec node -r ts-node/register --watch src src/index.ts"
   },
+  "license": "MIT",
   "dependencies": {
+    "@hapi/hapi": "^18.3.2",
+    "@microfleet/core": "^15.0.0",
+    "@microfleet/transport-amqp": "^15.1.4",
+    "@microfleet/validation": "^8.1.2",
+    "bluebird": "^3.7.2",
     "common-errors": "^1.0.5",
-    "jsonwebtoken": "8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "ms-conf": "^5.0.2",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/bluebird": "^3.5.29",
+    "@types/jest": "^24.9.0",
+    "@types/jsonwebtoken": "^8.3.6",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.1.8",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.3.0"
   }
 }

@@ -1,12 +1,12 @@
-const { ActionTransport } = require('@microfleet/core')
-const { HttpStatusError } = require('common-errors')
+import { ActionTransport } from '@microfleet/core'
+import { HttpStatusError } from 'common-errors'
 
 function decodeToken(token) {
   const [name, role] = token.split(':', 2)
   return { name, role }
 }
 
-function verifyToken({ params }) {
+export default function verify({ params }) {
   const { token } = params
 
   const { name, role } = decodeToken(token)
@@ -18,6 +18,4 @@ function verifyToken({ params }) {
   return { name, role }
 }
 
-verifyToken.transports = [ActionTransport.amqp]
-
-module.exports = verifyToken
+verify.transports = [ActionTransport.amqp]

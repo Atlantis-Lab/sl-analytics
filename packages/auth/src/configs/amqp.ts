@@ -1,4 +1,4 @@
-exports.amqp = {
+export const amqp = {
   transport: {
     queue: 'au-auth',
     connection: {
