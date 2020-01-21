@@ -1,4 +1,3 @@
-import { Promise } from 'bluebird'
 import { CollectorApp, PeriodType } from '@au/collector'
 import { reset } from '../../../tests/helpers/clickhouse'
 
@@ -41,8 +40,9 @@ describe('collector', () => {
 
   test('should be get count by period', async () => {
     const amqp = (collector as any).amqp
-    const resultByMinute: any[] = await Promise.using(amqp, (amqp: any) => {
-      return amqp.publishAndWait('collector.user.log.get', {
+    const resultByMinute: any[] = await amqp.publishAndWait(
+      'collector.user.log.get',
+      {
         type: 'countOpenByPeriod',
         options: {
           periodType: PeriodType.Minute,
@@ -50,11 +50,12 @@ describe('collector', () => {
           from: '2019-01-01 00:00:00',
           to: '2019-10-01 23:59:59',
         },
-      })
-    })
+      },
+    )
 
-    const resultByMonth: any[] = await Promise.using(amqp, (amqp: any) => {
-      return amqp.publishAndWait('collector.user.log.get', {
+    const resultByMonth: any[] = await amqp.publishAndWait(
+      'collector.user.log.get',
+      {
         type: 'countOpenByPeriod',
         options: {
           periodType: PeriodType.Month,
@@ -62,8 +63,8 @@ describe('collector', () => {
           from: '2019-01-01 00:00:00',
           to: '2019-04-01 00:00:00',
         },
-      })
-    })
+      },
+    )
 
     expect(resultByMinute.sort()).toMatchObject(
       [
@@ -86,14 +87,12 @@ describe('collector', () => {
   test('should be get popular device', async () => {
     const amqp = (collector as any).amqp
 
-    const result: any[] = await Promise.using(amqp, (amqp: any) => {
-      return amqp.publishAndWait('collector.user.log.get', {
-        type: 'devicePopular',
-        options: {
-          from: '2019-01-01 00:00:00',
-          to: '2019-10-01 23:59:59',
-        },
-      })
+    const result: any[] = await amqp.publishAndWait('collector.user.log.get', {
+      type: 'devicePopular',
+      options: {
+        from: '2019-01-01 00:00:00',
+        to: '2019-10-01 23:59:59',
+      },
     })
 
     expect(result.sort()).toMatchObject(
@@ -107,15 +106,13 @@ describe('collector', () => {
 
   test('should be get popular overlay by device', async () => {
     const amqp = (collector as any).amqp
-    const result: any[] = await Promise.using(amqp, (amqp: any) => {
-      return amqp.publishAndWait('collector.user.log.get', {
-        type: 'popularOverlayByDevice',
-        options: {
-          device: 'd_1',
-          from: '2019-01-01 00:00:00',
-          to: '2019-10-01 23:59:59',
-        },
-      })
+    const result: any[] = await amqp.publishAndWait('collector.user.log.get', {
+      type: 'popularOverlayByDevice',
+      options: {
+        device: 'd_1',
+        from: '2019-01-01 00:00:00',
+        to: '2019-10-01 23:59:59',
+      },
     })
 
     expect(result.sort()).toMatchObject(
