@@ -1,4 +1,4 @@
-const { ActionTransport } = require('@microfleet/core')
+import { ActionTransport } from '@microfleet/core'
 
 export default function getConfigurationAction() {
   return JSON.stringify(this.config, null, 2)

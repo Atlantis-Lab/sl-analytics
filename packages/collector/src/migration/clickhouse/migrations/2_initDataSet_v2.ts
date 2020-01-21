@@ -39,9 +39,9 @@ export const initDatasetV2 = {
     ]
 
     const ws: any = ch.insert(`INSERT INTO ${dbName}.user_logs`).stream()
-    for (let i = 0; i < userLogs.length; i++) {
-      await ws.writeRow(userLogs[i])
-    }
+    userLogs.forEach(async userLog => {
+      await ws.writeRow(userLog)
+    })
 
     await ws.exec()
 

@@ -12,15 +12,15 @@ export async function xSlrToken(request) {
   const { auth } = action
   const { strategy = 'required' } = auth
   const route = `auth.token.slr.verify`
-  const xSlrToken = request.headers['x-slr-token']
+  const token = request.headers['x-slr-token']
 
-  if (strategy === 'required' && !xSlrToken) {
+  if (strategy === 'required' && !token) {
     throw new HttpStatusError(401, 'Credentials Required')
   }
 
   const payload = {
-    token: xSlrToken,
+    token,
   }
 
-  return await amqp.publishAndWait(route, payload)
+  return amqp.publishAndWait(route, payload)
 }

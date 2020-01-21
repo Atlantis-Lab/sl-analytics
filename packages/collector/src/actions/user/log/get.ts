@@ -76,7 +76,7 @@ export default async function get({ params }) {
   const { type, options } = params
   const statement = presets[type](options)
 
-  return await ch.query(statement).toPromise()
+  return ch.query(statement).toPromise()
 }
 
 get.transports = [ActionTransport.amqp]
