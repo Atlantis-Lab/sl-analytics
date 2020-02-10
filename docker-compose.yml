@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  yarn:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn
+
+  gateway:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - 3000:3000
+    entrypoint: yarn gateway:dev
+    depends_on:
+      - rabbitmq
+
+  auth:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - 3001:3001
+    entrypoint: yarn auth:dev
+    depends_on:
+      - rabbitmq
+
+  collector:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - 3002:3002
+    entrypoint: yarn collector:dev
+    environment:
+      - CH_HOST=clickhouse
+      - CH_PORT=8123
+      - CH_USER=default
+    depends_on:
+      - rabbitmq
+      - clickhouse
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - '8123:8123'
+      - '9000:9000'

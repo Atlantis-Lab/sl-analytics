@@ -1,0 +1,25 @@
+{
+  "name": "@au/collector",
+  "description": "Collector",
+  "main": "./src/index.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "nodemon --exec node -r ts-node/register --watch src src/index.ts"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/hapi": "^18.3.2",
+    "@microfleet/core": "^15.0.0",
+    "@microfleet/transport-amqp": "^15.0.0",
+    "@microfleet/validation": "^8.1.2",
+    "clickhouse": "^1.2.21",
+    "common-errors": "^1.0.5",
+    "lodash": "^4.17.15",
+    "ms-conf": "^5.0.2",
+    "uuid": "^3.3.3",
+    "sqlstring": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.9.0"
+  }
+}

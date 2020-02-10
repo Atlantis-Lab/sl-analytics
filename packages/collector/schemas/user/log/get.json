@@ -1,0 +1,98 @@
+{
+  "$id": "user.log.get",
+  "required": ["type", "options"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["countOpenByPeriod", "devicePopular", "popularOverlayByDevice"]
+    },
+    "options": {
+      "type": "object",
+      "if": {
+        "properties": {
+          "0\\type": {
+            "$data": "devicePopular"
+          }
+        }
+      },
+      "then": {
+        "required": ["from", "to"],
+        "properties": {
+          "from": {
+            "type": "string",
+            "pattern": "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$"
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$"
+          }
+        }
+      },
+      "else": {
+        "if": {
+          "properties": {
+            "0\\type": {
+              "$data": "countOpenByPeriod"
+            }
+          }
+        },
+        "then": {
+          "required": ["periodType", "overlayType", "from", "to"],
+          "properties": {
+            "from": {
+              "type": "string",
+              "pattern": "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$"
+            },
+            "to": {
+              "type": "string",
+              "pattern": "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$"
+            },
+            "periodType": {
+              "type": "string",
+              "enum": [
+                "Second",
+                "Minute",
+                "Hour",
+                "DayOfWeek",
+                "DayOfMonth",
+                "DayOfYear",
+                "Month",
+                "Quarter",
+                "Year"
+              ]
+            },
+            "overlayType": {
+              "type": "string"
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "0\\type": {
+                "$data": "popularOverlayByDevice"
+              }
+            }
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": ["from", "to", "device"],
+            "properties": {
+              "from": {
+                "type": "string",
+                "pattern": "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$"
+              },
+              "to": {
+                "type": "string",
+                "pattern": "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$"
+              },
+              "device": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

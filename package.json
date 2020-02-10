@@ -1,0 +1,54 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "lint": "tslint -c tslint.json 'packages/**/src/**/*.ts'",
+    "commit": "git-cz",
+    "auth:dev": "yarn workspace @au/auth dev",
+    "collector:dev": "yarn workspace @au/collector dev",
+    "gateway:dev": "yarn workspace @au/gateway dev",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "8.3.4",
+    "@commitlint/config-lerna-scopes": "8.3.4",
+    "@types/jest": "^24.9.0",
+    "chalk": "^3.0.0",
+    "commitizen": "4.0.3",
+    "cz-conventional-changelog": "3.0.2",
+    "cz-lerna-changelog": "2.0.2",
+    "husky": "^4.0.10",
+    "jest": "^24.9.0",
+    "lerna": "^3.19.0",
+    "lint-staged": "10.0.1",
+    "nodemon": "^2.0.2",
+    "prettier": "1.19.1",
+    "request-promise": "^4.2.5",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.6.2",
+    "tslint": "^5.20.1",
+    "tslint-config-blvd": "^1.2.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.7.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn lint"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "git add"
+    ]
+  }
+}

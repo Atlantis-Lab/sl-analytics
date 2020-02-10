@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  yarn:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn
+
+  test:
+    image: node
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn run test
+    depends_on:
+      - rabbitmq
+      - clickhouse
+
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - '8123:8123'
+      - '9000:9000'
