@@ -1,4 +1,4 @@
-# microfleet
+# sl-analytics
 
 ## Run dev
 
